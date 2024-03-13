@@ -4,7 +4,7 @@ import datetime
 import requests
 import os
 access_token = os.getenv('ENTSOE_TOKEN')
-
+os.makedirs('data', exist_ok=True)
 
 # Get latest exchange rate from Norges Bank
 url = "https://data.norges-bank.no/api/data/EXR/B.EUR.NOK.SP?format=sdmx-json&lastNObservations=1&locale=en"
