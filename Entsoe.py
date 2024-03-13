@@ -45,5 +45,5 @@ for code in codes:
 Day_Prices['Time'] = Day_Prices['Time'].dt.strftime('%Y-%m-%d %H:%M:%S')
 
 # Save the DataFrame to a CSV file
-csv_file_path = 'data/DA_prices_converted_to_NOK.csv'
+csv_file_path = 'data/Day_Prices_Norway.csv'
 Day_Prices.to_csv(csv_file_path, index=False)
