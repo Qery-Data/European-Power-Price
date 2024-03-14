@@ -3,6 +3,7 @@ import pandas as pd
 import datetime
 import requests
 import os
+from pytz import timezone
 access_token = os.getenv('ENTSOE_TOKEN')
 os.makedirs('data', exist_ok=True)
 
@@ -18,7 +19,8 @@ exchange_rate = float(exchange_rate)
 
 # Initialize Entsoe Client
 client = EntsoePandasClient(api_key=access_token)
-current_date = pd.Timestamp(datetime.datetime.now().date(), tz='Europe/Brussels')
+oslo_tz = timezone('Europe/Oslo')
+current_date = pd.Timestamp(datetime.datetime.now(oslo_tz).date(), tz='Europe/Oslo')
 start = current_date
 end = current_date + pd.Timedelta(days=1)
 codes = ['NO_1', 'NO_2', 'NO_3', 'NO_4', 'NO_5']
