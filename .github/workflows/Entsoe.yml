@@ -27,7 +27,8 @@ jobs:
             sleep 10
           done
         env: 
-          ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
+          ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }},
+          DW_TOKEN: ${{ secrets.DW_TOKEN }}
       - name: Commit and push if it changed
         run: |
           git config user.name "${GITHUB_ACTOR}"
