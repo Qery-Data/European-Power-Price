@@ -5,6 +5,7 @@ import requests
 import os
 from pytz import timezone
 access_token = os.getenv('ENTSOE_TOKEN')
+access_token_DW = os.getenv('DW_TOKEN')
 os.makedirs('data', exist_ok=True)
 
 # Get latest exchange rate from Norges Bank
@@ -21,6 +22,7 @@ exchange_rate = float(exchange_rate)
 client = EntsoePandasClient(api_key=access_token)
 oslo_tz = timezone('Europe/Oslo')
 current_date = pd.Timestamp(datetime.datetime.now(oslo_tz).date(), tz='Europe/Oslo')
+formatted_date = current_date.strftime('%d/%m/%Y')  # Formatting date as DD/MM/YYYY
 start = current_date
 end = current_date + pd.Timedelta(days=1)
 codes = ['NO_1', 'NO_2', 'NO_3', 'NO_4', 'NO_5']
@@ -49,3 +51,14 @@ Day_Prices['Time'] = Day_Prices['Time'].dt.strftime('%Y-%m-%d %H:%M:%S')
 # Save the DataFrame to a CSV file
 csv_file_path = 'data/Day_Prices_Norway.csv'
 Day_Prices.to_csv(csv_file_path, index=False)
+
+#Update DW charts
+chartid = 'Qdyen'
+url = "https://api.datawrapper.de/v3/charts/" + chartid + '/'
+payload = {"title": "Strømpris i Område Øst (NO1) " + formatted_date}
+headers = {
+     "Authorization": ("Bearer " + access_token_DW),
+     "Accept": "*/*",
+     "Content-Type": "application/json"
+     }
+response = requests.request("PATCH", url, json=payload, headers=headers)
