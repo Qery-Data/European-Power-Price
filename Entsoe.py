@@ -62,3 +62,39 @@ headers = {
      "Content-Type": "application/json"
      }
 response = requests.request("PATCH", url, json=payload, headers=headers)
+chartid = '8XTX8'
+url = "https://api.datawrapper.de/v3/charts/" + chartid + '/'
+payload = {"title": "Strømpris i Område Sør (NO2) " + formatted_date}
+headers = {
+     "Authorization": ("Bearer " + access_token_DW),
+     "Accept": "*/*",
+     "Content-Type": "application/json"
+     }
+response = requests.request("PATCH", url, json=payload, headers=headers)
+chartid = 'PjDJc'
+url = "https://api.datawrapper.de/v3/charts/" + chartid + '/'
+payload = {"title": "Strømpris i Område Midt (NO3) " + formatted_date}
+headers = {
+     "Authorization": ("Bearer " + access_token_DW),
+     "Accept": "*/*",
+     "Content-Type": "application/json"
+     }
+response = requests.request("PATCH", url, json=payload, headers=headers)
+chartid = 'ZTUyo'
+url = "https://api.datawrapper.de/v3/charts/" + chartid + '/'
+payload = {"title": "Strømpris i Område Nord (NO4) " + formatted_date}
+headers = {
+     "Authorization": ("Bearer " + access_token_DW),
+     "Accept": "*/*",
+     "Content-Type": "application/json"
+     }
+response = requests.request("PATCH", url, json=payload, headers=headers)
+chartid = 'ANzKK'
+url = "https://api.datawrapper.de/v3/charts/" + chartid + '/'
+payload = {"title": "Strømpris i Område Vest (NO5) " + formatted_date}
+headers = {
+     "Authorization": ("Bearer " + access_token_DW),
+     "Accept": "*/*",
+     "Content-Type": "application/json"
+     }
+response = requests.request("PATCH", url, json=payload, headers=headers)
