@@ -55,7 +55,7 @@ Day_Prices.to_csv(csv_file_path, index=False)
 #Update DW charts
 chartid = 'Qdyen'
 url = "https://api.datawrapper.de/v3/charts/" + chartid + '/'
-payload = {"title": "Strømpris i Øst (NO1) " + formatted_date}
+payload = {'title': '<b style="font-size:17px">Strømpris i Øst (NO1) ' + formatted_date + '</b>'}
 headers = {
      "Authorization": ("Bearer " + access_token_DW),
      "Accept": "*/*",
@@ -71,7 +71,7 @@ response = requests.post(url, headers=headers)
 
 chartid = '8XTX8'
 url = "https://api.datawrapper.de/v3/charts/" + chartid + '/'
-payload = {"title": "Strømpris i Sør (NO2) " + formatted_date}
+payload = {'title': '<b style="font-size:17px">Strømpris i Sør (NO2)' + formatted_date+ '</b>'}
 headers = {
      "Authorization": ("Bearer " + access_token_DW),
      "Accept": "*/*",
@@ -87,7 +87,7 @@ response = requests.post(url, headers=headers)
 
 chartid = 'PjDJc'
 url = "https://api.datawrapper.de/v3/charts/" + chartid + '/'
-payload = {"title": "Strømpris i Midt (NO3) " + formatted_date}
+payload = {'title': '<b style="font-size:17px">Strømpris i Midt (NO3) ' + formatted_date+ '</b>'}
 headers = {
      "Authorization": ("Bearer " + access_token_DW),
      "Accept": "*/*",
@@ -103,7 +103,7 @@ response = requests.post(url, headers=headers)
 
 chartid = 'ZTUyo'
 url = "https://api.datawrapper.de/v3/charts/" + chartid + '/'
-payload = {"title": "Strømpris i Nord (NO4) " + formatted_date}
+payload = {'title': '<b style="font-size:17px">Strømpris i Nord (NO4) ' + formatted_date+ '</b>'}
 headers = {
      "Authorization": ("Bearer " + access_token_DW),
      "Accept": "*/*",
@@ -119,7 +119,7 @@ response = requests.post(url, headers=headers)
 
 chartid = 'ANzKK'
 url = "https://api.datawrapper.de/v3/charts/" + chartid + '/'
-payload = {"title": "Strømpris i Vest (NO5) " + formatted_date}
+payload = {'title': '<b style="font-size:17px">Strømpris i Vest (NO5) ' + formatted_date+ '</b>'}
 headers = {
      "Authorization": ("Bearer " + access_token_DW),
      "Accept": "*/*",
