@@ -71,7 +71,7 @@ response = requests.post(url, headers=headers)
 
 chartid = '8XTX8'
 url = "https://api.datawrapper.de/v3/charts/" + chartid + '/'
-payload = {'title': '<b style="font-size:17px">Strømpris i Sør (NO2)' + formatted_date+ '</b>'}
+payload = {'title': '<b style="font-size:17px">Strømpris i Sør (NO2) ' + formatted_date+ '</b>'}
 headers = {
      "Authorization": ("Bearer " + access_token_DW),
      "Accept": "*/*",
