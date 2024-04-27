@@ -4,8 +4,10 @@ import datetime
 import requests
 import os
 from pytz import timezone
+from datawrapper import Datawrapper
 access_token = os.getenv('ENTSOE_TOKEN')
 access_token_DW = os.getenv('DW_TOKEN')
+dw = Datawrapper(access_token=access_token_DW)
 os.makedirs('data', exist_ok=True)
 
 # Get latest exchange rate from Norges Bank
@@ -53,82 +55,13 @@ csv_file_path = 'data/Day_Prices_Norway.csv'
 Day_Prices.to_csv(csv_file_path, index=False)
 
 #Update DW charts
-chartid = 'Qdyen'
-url = "https://api.datawrapper.de/v3/charts/" + chartid + '/'
-payload = {'title': '<b style="font-size:17px">Strømpris i Øst (NO1) ' + formatted_date + '</b>'}
-headers = {
-     "Authorization": ("Bearer " + access_token_DW),
-     "Accept": "*/*",
-     "Content-Type": "application/json"
-     }
-response = requests.request("PATCH", url, json=payload, headers=headers)
-url = f"https://api.datawrapper.de/v3/charts/{chartid}/publish/"
-headers = {
-    "Authorization": f"Bearer {access_token_DW}",
-    "Accept": "*/*"
-}
-response = requests.post(url, headers=headers)
-
-chartid = '8XTX8'
-url = "https://api.datawrapper.de/v3/charts/" + chartid + '/'
-payload = {'title': '<b style="font-size:17px">Strømpris i Sør (NO2) ' + formatted_date+ '</b>'}
-headers = {
-     "Authorization": ("Bearer " + access_token_DW),
-     "Accept": "*/*",
-     "Content-Type": "application/json"
-     }
-response = requests.request("PATCH", url, json=payload, headers=headers)
-url = f"https://api.datawrapper.de/v3/charts/{chartid}/publish/"
-headers = {
-    "Authorization": f"Bearer {access_token_DW}",
-    "Accept": "*/*"
-}
-response = requests.post(url, headers=headers)
-
-chartid = 'PjDJc'
-url = "https://api.datawrapper.de/v3/charts/" + chartid + '/'
-payload = {'title': '<b style="font-size:17px">Strømpris i Midt (NO3) ' + formatted_date+ '</b>'}
-headers = {
-     "Authorization": ("Bearer " + access_token_DW),
-     "Accept": "*/*",
-     "Content-Type": "application/json"
-     }
-response = requests.request("PATCH", url, json=payload, headers=headers)
-url = f"https://api.datawrapper.de/v3/charts/{chartid}/publish/"
-headers = {
-    "Authorization": f"Bearer {access_token_DW}",
-    "Accept": "*/*"
-}
-response = requests.post(url, headers=headers)
-
-chartid = 'ZTUyo'
-url = "https://api.datawrapper.de/v3/charts/" + chartid + '/'
-payload = {'title': '<b style="font-size:17px">Strømpris i Nord (NO4) ' + formatted_date+ '</b>'}
-headers = {
-     "Authorization": ("Bearer " + access_token_DW),
-     "Accept": "*/*",
-     "Content-Type": "application/json"
-     }
-response = requests.request("PATCH", url, json=payload, headers=headers)
-url = f"https://api.datawrapper.de/v3/charts/{chartid}/publish/"
-headers = {
-    "Authorization": f"Bearer {access_token_DW}",
-    "Accept": "*/*"
-}
-response = requests.post(url, headers=headers)
-
-chartid = 'ANzKK'
-url = "https://api.datawrapper.de/v3/charts/" + chartid + '/'
-payload = {'title': '<b style="font-size:17px">Strømpris i Vest (NO5) ' + formatted_date+ '</b>'}
-headers = {
-     "Authorization": ("Bearer " + access_token_DW),
-     "Accept": "*/*",
-     "Content-Type": "application/json"
-     }
-response = requests.request("PATCH", url, json=payload, headers=headers)
-url = f"https://api.datawrapper.de/v3/charts/{chartid}/publish/"
-headers = {
-    "Authorization": f"Bearer {access_token_DW}",
-    "Accept": "*/*"
-}
-response = requests.post(url, headers=headers)
+dw.update_chart(chart_id='Qdyen', title='<b style="font-size:17px">Strømpris i Øst (NO1) ' + formatted_date +'</b>')
+dw.publish_chart(chart_id='Qdyen', display=False)
+dw.update_chart(chart_id='8XTX8', title='<b style="font-size:17px">Strømpris i Sør (NO2) ' + formatted_date +'</b>')
+dw.publish_chart(chart_id='8XTX8', display=False)
+dw.update_chart(chart_id='PjDJc', title='<b style="font-size:17px">Strømpris i Midt (NO3) ' + formatted_date +'</b>')
+dw.publish_chart(chart_id='PjDJc', display=False)
+dw.update_chart(chart_id='ZTUyo', title='<b style="font-size:17px">Strømpris i Nord (NO4) ' + formatted_date +'</b>')
+dw.publish_chart(chart_id='ZTUyo', display=False)
+dw.update_chart(chart_id='ANzKK', title='<b style="font-size:17px">Strømpris i Vest (NO5) ' + formatted_date +'</b>')
+dw.publish_chart(chart_id='ANzKK', display=False)
