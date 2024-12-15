@@ -25,11 +25,10 @@ client = EntsoePandasClient(api_key=access_token)
 oslo_tz = timezone('Europe/Oslo')
 current_date = pd.Timestamp(datetime.datetime.now(oslo_tz).date(), tz='Europe/Oslo')
 tomorrow = current_date + pd.Timedelta(days=1)
+start = pd.Timestamp(tomorrow, tz='Europe/Oslo')  
+end = start + pd.Timedelta(days=1)  
 formatted_date = tomorrow.strftime('%d/%m/%Y')
-start = current_date + pd.Timedelta(days=1) #Tomorrow
-end = current_date + pd.Timedelta(days=2) #Day after tomorrow
 codes = ['NO_1', 'NO_2', 'NO_3', 'NO_4', 'NO_5']
-
 Day_Prices = pd.DataFrame()
 
 # Loop through each area and query the prices
