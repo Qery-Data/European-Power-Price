@@ -21,7 +21,7 @@ jobs:
       - name: Update Entsoe data with retry mechanism
         run: |
           attempt=0
-          until python Entsoe Day Ahead.py || [ "$attempt" -ge 5 ]; do
+          until python Entsoe_Day_Ahead.py || [ "$attempt" -ge 5 ]; do
             attempt=$((attempt+1))
             echo "Attempt $attempt failed. Retrying in 10 seconds..."
             sleep 10
