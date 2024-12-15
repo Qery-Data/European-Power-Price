@@ -24,9 +24,10 @@ exchange_rate = float(exchange_rate)
 client = EntsoePandasClient(api_key=access_token)
 oslo_tz = timezone('Europe/Oslo')
 current_date = pd.Timestamp(datetime.datetime.now(oslo_tz).date(), tz='Europe/Oslo')
-formatted_date = current_date.strftime('%d/%m/%Y')  # Formatting date as DD/MM/YYYY
-start = current_date
-end = current_date + pd.Timedelta(days=1)
+tomorrow = current_date + pd.Timedelta(days=1)
+formatted_date = tomorrow.strftime('%d/%m/%Y')
+start = current_date + pd.Timedelta(days=1) #Tomorrow
+end = current_date + pd.Timedelta(days=2) #Day after tomorrow
 codes = ['NO_1', 'NO_2', 'NO_3', 'NO_4', 'NO_5']
 
 Day_Prices = pd.DataFrame()
@@ -51,17 +52,9 @@ for code in codes:
 Day_Prices['Time'] = Day_Prices['Time'].dt.strftime('%Y-%m-%d %H:%M:%S')
 
 # Save the DataFrame to a CSV file
-csv_file_path = 'data/Day_Prices_Norway.csv'
+csv_file_path = 'data/Day_Ahead_Prices_Norway.csv'
 Day_Prices.to_csv(csv_file_path, index=False)
 
 #Update DW charts
-dw.update_chart(chart_id='6mKte', title='<b style="font-size:17px">Strømpris i Øst (NO1) ' + formatted_date +'</b>')
-dw.publish_chart(chart_id='6mKte', display=False)
-dw.update_chart(chart_id='4IAOy', title='<b style="font-size:17px">Strømpris i Sør (NO2) ' + formatted_date +'</b>')
-dw.publish_chart(chart_id='4IAOy', display=False)
-dw.update_chart(chart_id='P5CjO', title='<b style="font-size:17px">Strømpris i Midt (NO3) ' + formatted_date +'</b>')
-dw.publish_chart(chart_id='P5CjO', display=False)
-dw.update_chart(chart_id='ZTUyo', title='<b style="font-size:17px">Strømpris i Nord (NO4) ' + formatted_date +'</b>')
-dw.publish_chart(chart_id='ZTUyo', display=False)
-dw.update_chart(chart_id='ANzKK', title='<b style="font-size:17px">Strømpris i Vest (NO5) ' + formatted_date +'</b>')
-dw.publish_chart(chart_id='ANzKK', display=False)
+dw.update_chart(chart_id='hNWmM', title='<b style="font-size:17px">Strømpris i Øst (NO1) ' + formatted_date +'</b>')
+dw.publish_chart(chart_id='hNWmM', display=False)
