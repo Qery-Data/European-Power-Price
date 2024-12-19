@@ -23,22 +23,36 @@ exchange_rate = float(exchange_rate)
 # Initialize Entsoe Client
 client = EntsoePandasClient(api_key=access_token)
 oslo_tz = timezone('Europe/Oslo')
-current_date = pd.Timestamp(datetime.datetime.now(oslo_tz).date(), tz='Europe/Oslo')
-tomorrow = current_date + pd.Timedelta(days=1)
-start = tomorrow 
-end = start + pd.Timedelta(days=1)  
-formatted_date = tomorrow.strftime('%d/%m/%Y')
+tomorrow_date = pd.Timestamp(datetime.datetime.now(oslo_tz).date() + datetime.timedelta(days=1), tz='Europe/Oslo')
+formatted_date = tomorrow_date.strftime('%d/%m/%Y')  # Formatting date as DD/MM/YYYY
+start = tomorrow_date
+end = tomorrow_date + pd.Timedelta(days=1)
 codes = ['NO_1', 'NO_2', 'NO_3', 'NO_4', 'NO_5']
+
+# Initialize an empty DataFrame to store all prices
 Day_Prices = pd.DataFrame()
 
 # Loop through each area and query the prices
 for code in codes:
-    prices = client.query_day_ahead_prices(code, start=start, end=end).to_frame().reset_index()
-    prices.columns = ['Time', f'Price_{code}']
-    if Day_Prices.empty:
-        Day_Prices = prices
-    else:
-        Day_Prices = pd.merge(Day_Prices, prices, on='Time', how='outer')
+    try:
+        # **Minimal Adjustment: Convert start and end to UTC for the API query**
+        prices = client.query_day_ahead_prices(
+            code, 
+            start=start.tz_convert('UTC'), 
+            end=end.tz_convert('UTC')
+        ).to_frame().reset_index()
+        
+        # Rename columns for clarity
+        prices.columns = ['Time', f'Price_{code}']
+        
+        # Merge the prices into the main DataFrame
+        if Day_Prices.empty:
+            Day_Prices = prices
+        else:
+            Day_Prices = pd.merge(Day_Prices, prices, on='Time', how='outer')
+    except Exception as e:
+        print(f"Error querying area {code}: {e}")
+        continue
 
 # Convert prices from EUR/MWh to NOK/kr/kWh and add 25% VAT
 for code in codes:
