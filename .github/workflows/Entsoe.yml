@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   schedule:
     # Runs at 00:01 Oslo time (11:01 PM UTC of the previous day)
-    - cron: '1 23 * * *'
+    - cron: '5 00 * * *'
 jobs:
   build-and-deploy:
     runs-on: Ubuntu-latest
